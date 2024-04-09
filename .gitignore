@@ -1,0 +1,4 @@
+# ignore all personal files
+
+.DS_Store
+.env
