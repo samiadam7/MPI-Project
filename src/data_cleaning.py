@@ -145,7 +145,7 @@ def gather_dfs(year: int | list) -> dict[int, pd.DataFrame]:
                                 sheet_name= "1.3 Contribut'n of Deprivations",
                                 skiprows=8, skipfooter=3, names= col2)
                 
-                df = merge(df_1, df_2, "ISO Country Code", "MPI") 
+                df = merge(df_1.fillna(0), df_2.fillna(0), "ISO Country Code", "MPI") 
                 df = df[["Country_x", 'MPI_x',
                     'Intensity', f'Population {year- 2}', "Region_y", 'Nutrition', 'Child Mortality',
                     'Years of Schooling', 'School Attendance', 'Cooking Fuel',
