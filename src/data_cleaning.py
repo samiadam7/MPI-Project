@@ -202,7 +202,7 @@ def get_regionals(year: int | list, year_dict: dict):
 
 
 def main():
-    YEARS = [2022, 2023]
+    YEARS = [2020, 2021, 2022, 2023]
     year_dfs = gather_dfs(YEARS)
     get_regionals(YEARS, year_dfs)
     
