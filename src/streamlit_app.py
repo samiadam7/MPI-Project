@@ -229,7 +229,7 @@ if region_box == "Global":
     st.divider()
     
     if country_lookup:
-        
+        st.markdown("#### MPI Tracker")
         country_dfs = []
         for i, df in enumerate(all_dfs):
             country = df.loc[df["Country"].isin(country_lookup)].copy()
@@ -237,7 +237,7 @@ if region_box == "Global":
             country_dfs.append(country)
         
         merged_countries_years_df = pd.concat(country_dfs, axis=0, ignore_index=True)
-        st.dataframe(merged_countries_years_df[["Health", "Education", "Living Standards"]])
+        prev_year = merged_countries_years_df.loc[merged_countries_years_df["Year"] == year_box - 1]
         
         if len(country_lookup) == 1:
             country = sub_df.loc[sub_df["Country"].isin(country_lookup)]
@@ -246,21 +246,35 @@ if region_box == "Global":
             
             for i, metric in enumerate(metrics, 1):
                 with globals()[f"col{i}"]:
-                    prev_year = merged_countries_years_df.loc[merged_countries_years_df["Year"] == year_box - 1]
                     if metric == "MPI":
-                        current_val = country[metrics[1:]].sum(axis=1).values[0]
+                        current_val = country[metrics[1:]].sum(axis= 1).values[0]
                         try:
-                            prev_val = prev_year[metrics[1:]].sum(axis=1).values[0]
-                            st.metric(metric, round(current_val, 3), f"{round((curr_val - prev_val) / prev_val * 100, 2)} %", "inverse")
+                            prev_val = prev_year[metrics[1:]].sum(axis= 1).values[0]
+                            delta = round((current_val - prev_val) / prev_val * 100, 2)
+                            st.metric(metric, round(current_val, 3), f"{delta} %", "inverse")
                         except:
                             st.metric(metric, round(current_val, 3))
                     else:
                         current_val = country[metric].values[0]
                         try:
                             prev_val = prev_year[metric].values[0]
-                            st.metric(metric, round(current_val, 3), f"{round((curr_val - prev_val) / prev_val * 100, 2)} %", "inverse")
+                            delta = round((current_val - prev_val) / prev_val * 100, 2)
+                            st.metric(metric, round(current_val, 3), f"{delta} %", "inverse")
                         except:
                             st.metric(metric, round(current_val, 3))
+                            
+            st.markdown(f"#### MPI Over Time")
+            over_time_chart = px.line(merged_countries_years_df, x= "Year", y= ["Health", "Education", "Living Standards"], color_discrete_sequence= gen_colors,
+                        markers= True)
+    
+            over_time_chart.update_layout(
+                xaxis = dict(
+                    tickmode = 'array',
+                    tickvals = [year_box - i for i in range(len((successful_dfs.keys())) + 1)]
+                ),
+                legend= legend_dict
+            )
+            st.plotly_chart(over_time_chart, use_container_width= True)
         
         else:
             
