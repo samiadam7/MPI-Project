@@ -11,5 +11,7 @@ communities, guiding resource allocation and policy formulation. The MPI's multi
 reality of poverty as experienced by individuals, recognizing that poverty encompasses more than just lack of income, but also
 limited access to essential services and opportunities.
 
-## Dashboard Tutorial
+## Dashboard Demo
+
+![Dashboard Demo](./assets/demo.gif)
 
