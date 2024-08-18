@@ -15,3 +15,4 @@ limited access to essential services and opportunities.
 
 ![Dashboard Demo](./assets/demo.gif)
 
+Check the dashboard out [here](https://mpidashboard.streamlit.app/)!
