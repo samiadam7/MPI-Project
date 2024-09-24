@@ -6,7 +6,7 @@ scikit-learn
 jupyter
 scipy
 statsmodels
-plotly
+plotly.express
 requests
 python-dotenv
 streamlit
