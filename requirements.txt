@@ -6,7 +6,7 @@ scikit-learn
 jupyter
 scipy
 statsmodels
-plotly
+plotly==5.22.0
 requests
 python-dotenv
 streamlit
